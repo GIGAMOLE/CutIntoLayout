@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.gigamole.cutintolayout;
+package devlight.io.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.animation.Animation;
-import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 
-import com.gigamole.cutintolayout.lib.CutIntoLayout;
+import devlight.io.library.CutIntoLayout;
 
 public class MainActivity extends Activity {
 
@@ -33,13 +33,14 @@ public class MainActivity extends Activity {
 
         final int quarterHeight = getWindowManager().getDefaultDisplay().getHeight() / 5;
 
-        final Animation slideAnimation = new TranslateAnimation(0, 0, -quarterHeight, quarterHeight);
+        final CutIntoLayout cutIntoLayout = (CutIntoLayout) findViewById(R.id.cut_into_layout);
+        ((FrameLayout.MarginLayoutParams) cutIntoLayout.getLayoutParams()).topMargin = quarterHeight / 2;
+
+        final Animation slideAnimation = new TranslateAnimation(0.0F, 0.0F, 0.0F, quarterHeight * 2.5F);
         slideAnimation.setDuration(2000);
-        slideAnimation.setInterpolator(new AnticipateOvershootInterpolator());
         slideAnimation.setRepeatCount(Animation.INFINITE);
         slideAnimation.setRepeatMode(Animation.REVERSE);
 
-        final CutIntoLayout cutIntoLayout = (CutIntoLayout) findViewById(R.id.cut_into_layout);
         cutIntoLayout.startAnimation(slideAnimation);
     }
 }
